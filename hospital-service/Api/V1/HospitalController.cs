@@ -10,13 +10,16 @@ namespace hospital_service.Api.V1
 {
     [Produces("application/json")]
     [Route("api/v1/[controller]")]
-    public class HospitalsController : ControllerBase
+    public class HospitalController : ControllerBase
     {
         private readonly StartupOptions _options;
-        public HospitalsController(IOptions<StartupOptions> options)
+        public HospitalController(IOptions<StartupOptions> options)
         {
             _options = options?.Value ?? throw new ArgumentNullException(nameof(options));
         }
+
+        [HttpGet("cannary")]
+        public IActionResult Cannary() => Ok();
 
         [HttpGet("heart-attack")]
         public async Task<ActionResult<PagedSearch<Hospital>>> GetForHeartAttackAsync(
