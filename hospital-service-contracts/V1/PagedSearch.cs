@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace hospital_service.Models
+namespace HospitalService.Contracts.V1
 {
     public class PagedSearch<TItemsModel>
     {
