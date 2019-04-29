@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 
-namespace hospital_service
+namespace HospitalService
 {
     public class Program
     {

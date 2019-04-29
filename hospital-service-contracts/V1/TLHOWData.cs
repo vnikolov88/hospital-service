@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace hospital_service.Models
+namespace HospitalService.Contracts.V1
 {
     public class TLHOWLineTypeEnumConverter : StringEnumConverter
     {

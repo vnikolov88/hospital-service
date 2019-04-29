@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace hospital_service.Api.V2
+namespace HospitalService.Api.V2
 {
     [Produces("application/json")]
     [Route("api/v2/[controller]")]

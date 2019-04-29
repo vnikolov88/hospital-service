@@ -1,15 +1,18 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using AutoMapper;
+using HospitalService.Services;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 [assembly: ApiController]
-namespace hospital_service
+namespace HospitalService
 {
     public class StartupOptions
     {
         public string DoctorHelpRestUrl { get; set; }
+        public string RedisConnectionInfo { get; set; }
     }
 
     public class Startup
@@ -26,7 +29,19 @@ namespace hospital_service
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.Configure<StartupOptions>(Configuration);
+            services.AddStackExchangeRedisCache(options =>
+            {
+                options.Configuration = Configuration.GetValue<string>("RedisConnectionInfo");
+            });
             services.AddOptions<StartupOptions>();
+            services.AddSingleton<IHospitalStorageService, HospitalStorageService>();
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile(new DomainProfile());
+            });
+
+            var mapper = config.CreateMapper();
+            services.AddSingleton(mapper);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
