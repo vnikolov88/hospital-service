@@ -1,10 +1,12 @@
 ﻿using AutoMapper;
+using Consul;
 using HospitalService.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System.Linq;
 
 [assembly: ApiController]
 namespace HospitalService
@@ -12,7 +14,7 @@ namespace HospitalService
     public class StartupOptions
     {
         public string DoctorHelpRestUrl { get; set; }
-        public string RedisConnectionInfo { get; set; }
+        public string RedisServiceName { get; set; }
     }
 
     public class Startup
@@ -31,7 +33,12 @@ namespace HospitalService
             services.Configure<StartupOptions>(Configuration);
             services.AddStackExchangeRedisCache(options =>
             {
-                options.Configuration = Configuration.GetValue<string>("RedisConnectionInfo");
+                using (var consul = new ConsulClient())
+                {
+                    var redisServiceName = Configuration.GetValue<string>("RedisServiceName");
+                    var redisServices = consul.Catalog.Service(redisServiceName).GetAwaiter().GetResult().Response;
+                    options.Configuration = string.Join(",", redisServices.Select(x => $"{x.Address}:{x.ServicePort}"));
+                }
             });
             services.AddOptions<StartupOptions>();
             services.AddSingleton<IHospitalStorageService, HospitalStorageService>();

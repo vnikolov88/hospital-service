@@ -42,7 +42,8 @@ namespace HospitalService
                 .ForMember(d => d.GUID, o => o.MapFrom(s => s.IK))
                 .ForMember(d => d.Name, o => o.MapFrom(s => s.Name))
                 .ForMember(d => d.Pictures, o => o.MapFrom(s => s.CurrentDepartment.TLHOW != null ? s.CurrentDepartment.TLHOW.ImageGallery : null))
-                .ForMember(d => d.SortOrder, o => o.Ignore());
+                .ForMember(d => d.SortOrder, o => o.Ignore())
+                .ForMember(d => d.DistanceFromLocationKm, o => o.MapFrom(s => s.DistanceFromLocation));
 
             CreateMap<Contracts.V1.Department, Contracts.V2.Department>()
                 .ForMember(d => d.Address, o => o.MapFrom(s => s.Address))
