@@ -1,4 +1,6 @@
-﻿namespace HospitalService.Contracts.V2
+﻿using Newtonsoft.Json;
+
+namespace HospitalService.Contracts.V2
 {
     public class Hospital
     {
@@ -13,5 +15,8 @@
         public Picture[] Pictures { get; set; }
 
         public Department[] Departments { get; set; }
+
+        [JsonIgnore]
+        public double DistanceFromLocationKm { get; set; }
     }
 }

@@ -31,6 +31,54 @@ namespace HospitalService.Api.V2
         [HttpGet("cannary")]
         public IActionResult Cannary() => Ok();
 
+        [HttpGet("heart-attack")]
+        public async Task<ActionResult<Contracts.V1.PagedSearch<Contracts.V2.Hospital>>> GetForHeartAttackAsync(
+           CancellationToken cancellationToken,
+           int distance,
+           string address,
+           int page = 1,
+           int pageSize = 20,
+           bool sortByPatientCount = false)
+        {
+            var hospitals = await $"{_options.DoctorHelpRestUrl}/api/v1/hospitals/query?distance={distance}&address={address}&page={page}&pageSize={pageSize}&sortByPatientCount={sortByPatientCount}"
+                .PostJsonAsync(new[] { "0300", "0103" }, cancellationToken)
+                .ReceiveJson<Contracts.V1.PagedSearch<Contracts.V1.Hospital>>();
+
+            return _mapper.Map<Contracts.V1.PagedSearch<Contracts.V2.Hospital>>(hospitals);
+        }
+
+        [HttpGet("aneurysm")]
+        public async Task<ActionResult<Contracts.V1.PagedSearch<Contracts.V2.Hospital>>> GetForAneurysmAsync(
+            CancellationToken cancellationToken,
+            int distance,
+            string address,
+            int page = 1,
+            int pageSize = 20,
+            bool sortByPatientCount = false)
+        {
+            var hospitals = await $"{_options.DoctorHelpRestUrl}/api/v1/hospitals/query?distance={distance}&address={address}&page={page}&pageSize={pageSize}&sortByPatientCount={sortByPatientCount}"
+                .PostJsonAsync(new[] { "1800" }, cancellationToken)
+                .ReceiveJson<Contracts.V1.PagedSearch<Contracts.V1.Hospital>>();
+
+            return _mapper.Map<Contracts.V1.PagedSearch<Contracts.V2.Hospital>>(hospitals);
+        }
+
+        [HttpGet("shock")]
+        public async Task<ActionResult<Contracts.V1.PagedSearch<Contracts.V2.Hospital>>> GetForShockAsync(
+            CancellationToken cancellationToken,
+            int distance,
+            string address,
+            int page = 1,
+            int pageSize = 20,
+            bool sortByPatientCount = false)
+        {
+            var hospitals = await $"{_options.DoctorHelpRestUrl}/api/v1/hospitals/query?distance={distance}&address={address}&page={page}&pageSize={pageSize}&sortByPatientCount={sortByPatientCount}"
+                .PostJsonAsync(new[] { "0100" }, cancellationToken)
+                .ReceiveJson<Contracts.V1.PagedSearch<Contracts.V1.Hospital>>();
+
+            return _mapper.Map<Contracts.V1.PagedSearch<Contracts.V2.Hospital>>(hospitals);
+        }
+
         [HttpGet]
         public async Task<ActionResult<Contracts.V1.PagedSearch<Contracts.V2.Hospital>>> Get(
             CancellationToken cancellationToken,
@@ -80,6 +128,12 @@ namespace HospitalService.Api.V2
         {
             await _hospitalStorageService.UpdateCompanyAsync(company, cancellationToken);
             return Ok();
+        }
+
+        [HttpGet("get-company")]
+        public async Task<ActionResult<Contracts.V2.Company>> GetCompanyByGuid(CancellationToken cancellationToken, string guid)
+        {
+            return await _hospitalStorageService.GetCompanyAsync(guid, cancellationToken);
         }
     }
 }
