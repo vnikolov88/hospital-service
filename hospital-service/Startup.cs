@@ -15,6 +15,7 @@ namespace HospitalService
     {
         public string DoctorHelpRestUrl { get; set; }
         public string RedisServiceName { get; set; }
+        public string ConsulRestUrl { get; set; }
     }
 
     public class Startup
@@ -33,11 +34,12 @@ namespace HospitalService
             services.Configure<StartupOptions>(Configuration);
             services.AddStackExchangeRedisCache(options =>
             {
-                using (var consul = new ConsulClient())
+                var consulResturl = Configuration.GetValue<string>("ConsulRestUrl");
+                using (var consul = new ConsulClient(x => x.Address = new System.Uri(consulResturl)))
                 {
                     var redisServiceName = Configuration.GetValue<string>("RedisServiceName");
                     var redisServices = consul.Catalog.Service(redisServiceName).GetAwaiter().GetResult().Response;
-                    options.Configuration = string.Join(",", redisServices.Select(x => $"{x.Address}:{x.ServicePort}"));
+                    options.Configuration = string.Join(",", redisServices.Select(x => $"{x.ServiceAddress}:{x.ServicePort}"));
                 }
             });
             services.AddOptions<StartupOptions>();
