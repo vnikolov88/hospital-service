@@ -24,7 +24,6 @@ namespace HospitalService.Contracts.V2
 
         public Doctor[] Doctors { get; set; }
 
-        [JsonIgnore]
         public double DistanceFromLocationKm { get; set; }
     }
 }

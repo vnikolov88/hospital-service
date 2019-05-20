@@ -18,7 +18,7 @@ namespace HospitalService.Services
         {
             var data = await _cache.GetStringAsync(guid, cancellationToken);
             if (string.IsNullOrWhiteSpace(data))
-                return new Contracts.V2.Company();
+                return null;
             else
                 return JsonConvert.DeserializeObject<Contracts.V2.Company>(data);
         }
@@ -27,7 +27,7 @@ namespace HospitalService.Services
         {
             var data = await _cache.GetStringAsync(guid, cancellationToken);
             if (string.IsNullOrWhiteSpace(data))
-                return new Contracts.V2.Hospital();
+                return null;
             else
                 return JsonConvert.DeserializeObject<Contracts.V2.Hospital>(data);
         }
@@ -36,7 +36,7 @@ namespace HospitalService.Services
         {
             var data = await _cache.GetStringAsync(guid, cancellationToken);
             if (string.IsNullOrWhiteSpace(data))
-                return new Contracts.V2.Department();
+                return null;
             else
                 return JsonConvert.DeserializeObject<Contracts.V2.Department>(data);
         }
@@ -45,7 +45,7 @@ namespace HospitalService.Services
         {
             var data = await _cache.GetStringAsync(guid, cancellationToken);
             if (string.IsNullOrWhiteSpace(data))
-                return new Contracts.V2.Doctor();
+                return null;
             else
                 return JsonConvert.DeserializeObject<Contracts.V2.Doctor>(data);
         }

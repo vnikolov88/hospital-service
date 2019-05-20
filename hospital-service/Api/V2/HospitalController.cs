@@ -106,19 +106,31 @@ namespace HospitalService.Api.V2
         [HttpGet("get")]
         public async Task<ActionResult<Contracts.V2.Hospital>> GetByGuid(CancellationToken cancellationToken, string guid)
         {
-            return await _hospitalStorageService.GetHospitalAsync(guid, cancellationToken);
+            var result = await _hospitalStorageService.GetHospitalAsync(guid, cancellationToken);
+            if (result != null)
+                return result;
+            else
+                return NotFound();
         }
 
         [HttpGet("get-department")]
         public async Task<ActionResult<Contracts.V2.Department>> GetDepartmentByGuid(CancellationToken cancellationToken, string guid)
         {
-            return await _hospitalStorageService.GetHospitalDepartmentAsync(guid, cancellationToken);
+            var result = await _hospitalStorageService.GetHospitalDepartmentAsync(guid, cancellationToken);
+            if (result != null)
+                return result;
+            else
+                return NotFound();
         }
 
         [HttpGet("get-department-doctor")]
         public async Task<ActionResult<Contracts.V2.Doctor>> GetDepartmentDoctorByGuid(CancellationToken cancellationToken, string guid)
         {
-            return await _hospitalStorageService.GetHospitalDepartmentDoctorAsync(guid, cancellationToken);
+            var result = await _hospitalStorageService.GetHospitalDepartmentDoctorAsync(guid, cancellationToken);
+            if (result != null)
+                return result;
+            else
+                return NotFound();
         }
 
         [HttpPost("update-company")]
@@ -133,7 +145,11 @@ namespace HospitalService.Api.V2
         [HttpGet("get-company")]
         public async Task<ActionResult<Contracts.V2.Company>> GetCompanyByGuid(CancellationToken cancellationToken, string guid)
         {
-            return await _hospitalStorageService.GetCompanyAsync(guid, cancellationToken);
+            var result = await _hospitalStorageService.GetCompanyAsync(guid, cancellationToken);
+            if (result != null)
+                return result;
+            else
+                return NotFound();
         }
     }
 }
