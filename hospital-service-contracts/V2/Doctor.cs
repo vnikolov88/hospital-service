@@ -20,7 +20,6 @@ namespace HospitalService.Contracts.V2
 
         public string CVUrl { get; set; }
 
-        [JsonIgnore]
         public double DistanceFromLocationKm { get; set; }
     }
 }
