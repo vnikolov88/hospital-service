@@ -36,6 +36,18 @@ namespace HospitalService
                 .ForMember(d => d.Salutation, o => o.MapFrom(s => s.Title))
                 .ForMember(d => d.Specialty, o => o.MapFrom(s => s.Function));
 
+            CreateMap<Contracts.V1.TLHOWAddress, Contracts.V2.Address>()
+                .ForMember(d => d.City, o => o.MapFrom(s => s.Place))
+                .ForMember(d => d.Email, o => o.Ignore())
+                .ForMember(d => d.Fax, o => o.Ignore())
+                .ForMember(d => d.Latitude, o => o.MapFrom(s => s.Latitude))
+                .ForMember(d => d.Longitude, o => o.MapFrom(s => s.Longitude))
+                .ForMember(d => d.Phone, o => o.Ignore())
+                .ForMember(d => d.Postcode, o => o.MapFrom(s => s.Postcode))
+                .ForMember(d => d.Street, o => o.MapFrom(s => s.Street))
+                .ForMember(d => d.StreetNr, o => o.MapFrom(s => s.StreetNr))
+                .ForMember(d => d.Url, o => o.MapFrom(s => s.Url));
+
             CreateMap<Contracts.V1.Hospital, Contracts.V2.Hospital>()
                 .ForMember(d => d.Address, o => o.MapFrom(s => s.Address))
                 .ForMember(d => d.Departments, o => o.MapFrom(s => s.Departments))
