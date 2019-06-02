@@ -1,12 +1,12 @@
-﻿using Newtonsoft.Json;
-
-namespace HospitalService.Contracts.V2
+﻿namespace HospitalService.Contracts.V2
 {
     public class Department
     {
         public string GUID { get; set; }
 
         public string Name { get; set; }
+
+        public DepartmentType Type { get; set; }
 
         public Address Address { get; set; }
 
