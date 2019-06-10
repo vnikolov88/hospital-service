@@ -16,6 +16,8 @@ namespace HospitalService.Contracts.V2
 
         public Department[] Departments { get; set; }
 
+        public SocialInformation Social { get; set; }
+
         public double DistanceFromLocationKm { get; set; }
     }
 }
