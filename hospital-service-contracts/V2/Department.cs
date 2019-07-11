@@ -14,6 +14,8 @@
 
         public Picture[] Pictures { get; set; }
 
+        public string PersonalHeadline { get; set; }
+
         public string WorktimeMessageHtml { get; set; }
 
         public string DescriptionHtml { get; set; }
