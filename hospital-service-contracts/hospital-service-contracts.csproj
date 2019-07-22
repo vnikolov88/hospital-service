@@ -8,7 +8,7 @@
     <PackageId>hospital-service-contracts</PackageId>
     <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
     <PackageReleaseNotes>Added contracts for V1 and V2 of the hospital-service api</PackageReleaseNotes>
-    <Version>2.2.4</Version>
+    <Version>2.2.6</Version>
     <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
     <Company>hospital-service-contracts</Company>
     <Authors>hospital-service-contracts</Authors>
