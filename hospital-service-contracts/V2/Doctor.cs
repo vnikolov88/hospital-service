@@ -18,6 +18,8 @@ namespace HospitalService.Contracts.V2
 
         public Picture[] Pictures { get; set; }
 
+        public string CVHtml { get; set; }
+
         public string CVUrl { get; set; }
 
         public double DistanceFromLocationKm { get; set; }
